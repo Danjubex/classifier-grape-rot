@@ -1,0 +1,30 @@
+{
+  "name": "classifier-grape-rot",
+  "version": "1.0.0",
+  "description": "This project applies a classifier of the type Multilayer Perceptron to predict problems of rot according to Germoplasmic variables",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^6.26.3"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danjubex/classifier-grape-rot.git"
+  },
+  "keywords": [
+    "mlp;classifier;grape;agrobusiness"
+  ],
+  "author": "Danillo Xavier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Danjubex/classifier-grape-rot/issues"
+  },
+  "homepage": "https://github.com/Danjubex/classifier-grape-rot#readme"
+}
