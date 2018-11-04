@@ -6,13 +6,18 @@
   "directories": {
     "doc": "docs"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@tensorflow/tfjs": "^0.13.3"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.1.0",
-    "babel-core": "^6.26.3"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "build": "babel index.js -d dist",
+    "start": "npm run build && node dist/index.js"
   },
   "repository": {
     "type": "git",

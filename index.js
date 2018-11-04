@@ -17,3 +17,14 @@ model.fit(xs, ys, {epochs: 10}).then(() => {
   // Use the model to do inference on a data point the model hasn't seen before:
   model.predict(tf.tensor2d([5], [1, 1])).print();
 });
+
+
+console.log("concluído");
+// import http from 'http';
+//
+// http.createServer((req, res) => {
+//   res.writeHead(200, {'Content-Type': 'text/plain'});
+//   res.end('Hello World\n');
+// }).listen(1337, '127.0.0.1');
+//
+// console.log('Server running at http://127.0.0.1:1337/');
