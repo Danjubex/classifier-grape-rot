@@ -13,11 +13,12 @@
     "@babel/preset-env": "^7.1.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.5"
   },
   "scripts": {
     "build": "babel index.js -d dist",
-    "start": "npm run build && node dist/index.js"
+    "start": "npm run build && nodemon dist/index.js"
   },
   "repository": {
     "type": "git",
