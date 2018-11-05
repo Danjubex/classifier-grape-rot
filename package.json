@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "babel index.js -d dist",
-    "start": "npm run build && nodemon dist/index.js"
+    "start": "npm run build && node dist/index.js"
   },
   "repository": {
     "type": "git",
