@@ -82,7 +82,7 @@ var xs = tf.tensor2d([0, 0.1, 0.2, 0.3, 0.4, 0.5], [6, 1]);
 var ys = tf.tensor2d([0, 0.026744186, 0.069767442, 0.129069767, 0.204651163, 0.296511628], [6, 1]);
 
 model.fit(xs, ys, { epochs: 10000 }).then(function () {
-  model.predict(tf.tensor2d([4], [1, 1])).print();
+  model.predict(tf.tensor2d([0.9], [1, 1])).print();
 });
 
 // Train a simple model:

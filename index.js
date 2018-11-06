@@ -89,7 +89,7 @@ const ys = tf.tensor2d([
 
 model.fit(xs, ys, {epochs: 10000}).then(()=>
 {
-  model.predict(tf.tensor2d([9], [1, 1])).print();
+  model.predict(tf.tensor2d([0.2], [1, 1])).print();
 
 });
 
