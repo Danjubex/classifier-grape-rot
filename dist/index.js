@@ -1,10 +1,74 @@
-'use strict';
+"use strict";
 
-var _tfjs = require('@tensorflow/tfjs');
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var go = function () {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+    var model, training_data, target_data, i, h;
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            model = tf.sequential();
+
+            model.add(tf.layers.dense({ units: 10, activation: 'sigmoid', inputShape: [2] }));
+            model.add(tf.layers.dense({ units: 1, activation: 'sigmoid', inputShape: [10] }));
+
+            model.compile({ loss: 'meanSquaredError', optimizer: 'rmsprop' });
+
+            training_data = tf.tensor2d([[0, 0], [0, 1], [1, 0], [1, 1]]);
+            target_data = tf.tensor2d([[0], [1], [1], [0]]);
+            i = 1;
+
+          case 7:
+            if (!(i < 100)) {
+              _context.next = 15;
+              break;
+            }
+
+            _context.next = 10;
+            return model.fit(training_data, target_data, { epochs: 30 });
+
+          case 10:
+            h = _context.sent;
+
+            console.log("Loss after Epoch " + i + " : " + h.history.loss[0]);
+
+          case 12:
+            ++i;
+            _context.next = 7;
+            break;
+
+          case 15:
+
+            model.predict(training_data).print();
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function go() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var _tfjs = require("@tensorflow/tfjs");
 
 var tf = _interopRequireWildcard(_tfjs);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //
 // // Define a model for linear regression.
@@ -53,52 +117,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 // });
 
 
-var model1 = tf.sequential();
-model1.add(tf.layers.dense({ inputShape: [4], units: 3, activation: 'relu' }));
-model1.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
-model1.summary();
-model1.predict(tf.zeros([1, 4])).print();
+require("babel-core/register");
+require("babel-polyfill");
 
-var model = tf.sequential();
-// model.add(tf.layers.dense({units: 1, inputShape: [1]}));
-
-model.add(tf.layers.dense({ units: 12, inputShape: [1], activation: 'sigmoid' }));
-
-model.add(tf.layers.dense({ units: 6, activation: 'sigmoid' }));
-model.add(tf.layers.dense({ units: 12, activation: 'sigmoid' }));
-// model.summary();
-model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
-
-model.compile({
-  loss: 'meanSquaredError',
-  optimizer: 'sgd'
-});
-//
-// const xs = tf.tensor2d([-1, 0, 1, 2, 3, 4], [6, 1]);
-// const ys = tf.tensor2d([-3, -1, 1, 3, 5, 7], [6, 1]);
-
-var xs = tf.tensor2d([0, 0.1, 0.2, 0.3, 0.4, 0.5], [6, 1]);
-// const ys = tf.tensor2d([2, 5, 8, 11, 14, 17], [6, 1]);
-var ys = tf.tensor2d([0, 0.026744186, 0.069767442, 0.129069767, 0.204651163, 0.296511628], [6, 1]);
-
-model.fit(xs, ys, { epochs: 10000 }).then(function () {
-  model.predict(tf.tensor2d([0.9], [1, 1])).print();
-});
-
-// Train a simple model:
-// const model = tf.sequential();
-// model.add(tf.layers.dense({units: 100, activation: 'relu', inputShape: [10]}));
-// model.add(tf.layers.dense({units: 1, activation: 'linear'}));
-// model.compile({optimizer: 'sgd', loss: 'meanSquaredError'});
-//
-// const xs = tf.randomNormal([100, 10]);
-// const ys = tf.randomNormal([100, 1]);
-//
-// model.fit(xs, ys, {
-//   epochs: 100,
-//   callbacks: {
-//     onEpochEnd: async (epoch, log) => {
-//       console.log(`Epoch ${epoch}: loss = ${log.loss}`);
-//     }
-//   }
-// });
+go();

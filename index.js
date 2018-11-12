@@ -47,66 +47,27 @@ import * as tf from '@tensorflow/tfjs';
 // });
 
 
+require("babel-core/register");
+require("babel-polyfill");
 
-const model1 = tf.sequential();
-model1.add(tf.layers.dense({inputShape: [4], units: 3, activation: 'relu'}));
-model1.add(tf.layers.dense({units: 1, activation: 'sigmoid'}));
-model1.summary();
-model1.predict(tf.zeros([1, 4])).print();
-
+async function go() {
 
 const model = tf.sequential();
-// model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+model.add(tf.layers.dense({units: 10, activation: 'sigmoid',inputShape: [2]}));
+model.add(tf.layers.dense({units: 1, activation: 'sigmoid',inputShape: [10]}));
 
-model.add(tf.layers.dense({units: 12,  inputShape: [1], activation: 'sigmoid'}));
+model.compile({loss: 'meanSquaredError', optimizer: 'rmsprop'});
 
-model.add(tf.layers.dense({units: 6,  activation: 'sigmoid'}));
-model.add(tf.layers.dense({units: 12,  activation: 'sigmoid'}));
-// model.summary();
-model.add(tf.layers.dense({units: 1, activation: 'sigmoid'}));
+const training_data = tf.tensor2d( [[0,0],[0,1],[1,0],[1,1]] );
+const target_data = tf.tensor2d([    [0],  [1],  [1],  [0]]  );
 
+for (let i = 1; i < 100 ; ++i) {
+ var h = await model.fit(training_data, target_data, {epochs: 30});
+   console.log("Loss after Epoch " + i + " : " + h.history.loss[0]);
+}
 
+ model.predict(training_data).print();
 
-model.compile({
- loss: 'meanSquaredError',
- optimizer: 'sgd'
-});
-//
-// const xs = tf.tensor2d([-1, 0, 1, 2, 3, 4], [6, 1]);
-// const ys = tf.tensor2d([-3, -1, 1, 3, 5, 7], [6, 1]);
+}
 
-const xs = tf.tensor2d([0,0.1,0.2,0.3,0.4,0.5], [6, 1]);
-// const ys = tf.tensor2d([2, 5, 8, 11, 14, 17], [6, 1]);
-const ys = tf.tensor2d([
-0,
-0.026744186,
-0.069767442,
-0.129069767,
-0.204651163,
-0.296511628
-
-], [6, 1]);
-
-model.fit(xs, ys, {epochs: 10000}).then(()=>
-{
-  model.predict(tf.tensor2d([0.2], [1, 1])).print();
-
-});
-
-// Train a simple model:
-// const model = tf.sequential();
-// model.add(tf.layers.dense({units: 100, activation: 'relu', inputShape: [10]}));
-// model.add(tf.layers.dense({units: 1, activation: 'linear'}));
-// model.compile({optimizer: 'sgd', loss: 'meanSquaredError'});
-//
-// const xs = tf.randomNormal([100, 10]);
-// const ys = tf.randomNormal([100, 1]);
-//
-// model.fit(xs, ys, {
-//   epochs: 100,
-//   callbacks: {
-//     onEpochEnd: async (epoch, log) => {
-//       console.log(`Epoch ${epoch}: loss = ${log.loss}`);
-//     }
-//   }
-// });
+go();
